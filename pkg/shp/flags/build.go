@@ -39,6 +39,8 @@ func BuildSpecFromFlags(flags *pflag.FlagSet) *buildv1alpha1.BuildSpec {
 	imageFlags(flags, "output", &spec.Output)
 	timeoutFlags(flags, spec.Timeout)
 	envFlags(flags, spec.Env)
+	imageLabelsFlags(flags, spec.Output.Labels)
+	imageAnnotationsFlags(flags, spec.Output.Annotations)
 
 	return spec
 }

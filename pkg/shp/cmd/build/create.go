@@ -68,6 +68,18 @@ func (c *CreateCommand) Run(params *params.Params, io *genericclioptions.IOStrea
 	}
 	b.Spec.Env = append(b.Spec.Env, util.StringSliceToEnvVarSlice(envs)...)
 
+	labels, err := c.cmd.Flags().GetStringArray(flags.OutputImageLabelsFlag)
+	if err != nil {
+		return err
+	}
+	b.Spec.Output.Labels = util.StringSliceToMap(labels)
+
+	annotations, err := c.cmd.Flags().GetStringArray(flags.OutputImageAnnotationsFlag)
+	if err != nil {
+		return err
+	}
+	b.Spec.Output.Annotations = util.StringSliceToMap(annotations)
+
 	flags.SanitizeBuildSpec(&b.Spec)
 
 	clientset, err := params.ShipwrightClientSet()

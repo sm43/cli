@@ -15,3 +15,13 @@ func StringSliceToEnvVarSlice(envs []string) []corev1.EnvVar {
 	}
 	return envVars
 }
+
+func StringSliceToMap(kv []string) map[string]string {
+	m := map[string]string{}
+
+	for _, e := range kv {
+		d := strings.Split(e, "=")
+		m[d[0]] = d[1]
+	}
+	return m
+}
